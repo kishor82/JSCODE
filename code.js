@@ -116,19 +116,52 @@
 //   return result * 2;
 // })
 
-new Promise((resolve,reject) => {
-  setTimeout(() => resolve(1),1000);
-}).then(result => {
-  alert(result);
+// new Promise((resolve,reject) => {
+//   setTimeout(() => resolve(1),1000);
+// }).then(result => {
+//   alert(result);
 
-  return new Promise((resolve,reject) => {
-    setTimeout(() => resolve(result * 2),1000);
-  });
-}).then(result => {
-  alert(result);
-   return new Promise((resolve,reject) => {
-    setTimeout(() => resolve(result * 2),1000);
-   });
-}).then(result => {
-  alert(result);
+//   return new Promise((resolve,reject) => {
+//     setTimeout(() => resolve(result * 2),1000);
+//   });
+// }).then(result => {
+//   alert(result);
+//    return new Promise((resolve,reject) => {
+//     setTimeout(() => resolve(result * 2),1000);
+//    });
+// }).then(result => {
+//   alert(result);
+// });
+
+// class Thenable {
+//   constructor(num){
+//     this.num = num ;
+//   }
+//   then(resolve,reject){
+//     alert(resolve);
+//     setTimeout(() => resolve(this.num * 2),1000);
+//   }
+// }
+
+// new Promise(resolve => resolve(1))
+//   .then(result => {
+//     return new Thenable(result);
+//   })
+//   .then(alert);
+
+fetch ('https://javascript.info/article/promise-chaining/user.json')
+.then(response => response.json())
+//Make a request to github 
+.then(user =>{
+ user.name = 'kishor82';
+ return user.name ;
+ 
+} )
+.then(user => fetch(`https://api.github.com/users/${user}`))
+.then(response => response.json())
+.then(githubUser => {
+  let img = document.createElement('img');
+  img.src = githubUser.avatar_url ;
+  img.className = "promise-avatar-example";
+  document.body.append(img);
 });
