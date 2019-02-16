@@ -46,6 +46,7 @@ Add = () => {
     //Add the new value
 
     countries.push(country.trim());
+    new Storage("countries").setData(countries);
 
     //Reset input value
 
@@ -62,6 +63,7 @@ Edit = item => {
     let country = el.value;
     if (country) {
       countries.splice(item, 1, country.trim());
+      new Storage("countries").setData(countries);
       new app(countries).fetchAll();
       CloseInput();
     }
@@ -69,7 +71,10 @@ Edit = item => {
 };
 Delete = item => {
   countries.splice(item, 1);
+  new Storage("countries").setData(countries);
   new app(countries).fetchAll();
 };
-let countries = ["India", "france", "USA", "China", "Russia"];
+let countries = [];
+countries = new Storage("countries").fetchData();
+// localStorage.setItem("countries", JSON.stringify(countries));
 new app(countries).fetchAll();
