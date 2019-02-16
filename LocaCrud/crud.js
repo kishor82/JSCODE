@@ -8,6 +8,7 @@ class app {
     let el = document.getElementById("counter");
 
     if (data) {
+      let name = "student"
       if (data > 1) {
         name = "countries";
       }
